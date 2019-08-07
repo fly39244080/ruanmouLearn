@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>vue实例的属性和方法、过滤器</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>  
+        <div id="learnApp">
+            {{msg | filterA('laney')}}
+                <ul>
+                        <template v-for="item in items">
+                          <li>{{ item }}</li>
+                          <li>tttt</li>
+                        </template>
+                      </ul>
+
+                <h1 slot="header">
+                    About Me
+                </h1>
+                <input type="text" v-model="basicInfo.short.name">
+            {{tip}}
+            {{basicInfo.long}}
+            {{items}}
+        </div>
+        <script src="../../node_modules/vue/dist/vue.js"></script>
+        <script>
+            // var res = Vue.compile('<div id="app"><span>{{ msg }}</span></div>')
+            function firstLetter(val){
+                return val.charAt(0).toUpperCase() + val.slice(1);
+                }
+                debugger
+           var vm =  new Vue({
+                el:'#learnApp',
+                customOption: 'foo',
+                data:{
+                    msg:'my name is',
+                    items: ['a', 'b', 'c'],
+                    tip:'hello world',
+                    basicInfo:{
+                        short:{
+                            name:'ss'
+                        }
+                    }  
+                },
+                filters:{
+                    filterA(value,name){
+                        if(!value){
+                            return value;
+                        } 
+                        return firstLetter(value) + ' '+firstLetter(name) ;
+                    }
+                },
+                // render: res.render,
+                methods:{
+                  
+                },
+                mounted(){
+                    // this.items[1]='mmm'; //不是响应性的
+                    this.items.splice(1,1,'mm')
+                }
+            });
+            //实例属性
+            // vm.$data
+            // vm.$el
+            // vm.$option
+            // vm.$slots
+            // vm.$refs
+
+            //实例方法
+            // 为了发现对象内部值的变化，可以在选项参数中指定 deep: true 。注意监听数组的变动不需要这么做。
+            vm.$watch('basicInfo',function(newVal,oldVal){
+                console.log(newVal.short.name)
+            },{
+                deep: true,
+                immediate: false
+            })
+
+            vm.basicInfo.long = 'long' //不能实时驱动
+            vm.$set(vm.basicInfo, 'long', 'ddd2')  //可以
+
+
+            vm.$on('test', function (msg) {
+                console.log(msg)
+            });
+            vm.$emit('test', 'hi');
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>props emit父子组件传值</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <script src="../../../node_modules/vue/dist/vue.min.js"></script>
+    </head>
+    <body>
+        <template id="hello">
+            <div class="hello">
+                <h3>我是 hello 子组件</h3>
+                <!-- 在页面中直接渲染即可 -->
+                <h4>访问父组件中的数据： {{msg}}</h4>
+                <button @click="change">改变父组件的数据</button>
+            </div>
+        </template>
+        <div id="app">
+
+            <div class="hello">
+                <h3>我是 App 父组件</h3>
+                <h4>访问自己的数据：{{msg}},{{school}}</h4>
+                <hr>
+                <!-- 1. 在调用子组件时，绑定想要获取的父组件中的数据 -->
+                <Hello :message="msg" :school="school" v-on:emit-change= 'getChangeData'></Hello>
+
+                <!-- .sync 会被扩展为一个自动更新父组件属性的 v-on 监听器 -->
+                <Hello :message="msg" :school="school"></Hello>
+            </div>
+
+        </div>
+        <script>
+            Vue.component('hello',{
+                template:'#hello',
+                props:['message'],
+                data(){
+                    return {
+                        // 定义一个局部变量，并用 props 的值来初始化它
+                        msg:this.message,
+                        school2:this.school
+                    }
+                },
+                methods:{
+                    // 定义一个方法，来触发改变父组件的数据
+                    change(){   
+                        this.$emit('emit-change',{
+                            school:'ppp'
+                        });
+                        this.msg = '我改变了父组件的数据'
+                    }
+                }
+            });
+            var vm = new Vue({
+                el:'#app',
+                data(){
+                    return {
+                    msg:'父组件01',
+                    school:'父组件的学校- 武汉大学',
+                    name:'tom',
+                    age:'22',
+                    user:{
+                        id:1234,
+                        userName:'Jack'
+                    }
+                    }
+                },
+                methods:{
+                    getChangeData(res){
+                        this.school = res.school ? res.school :this.school;
+                    }
+                }
+            });
+       </script>
+    </body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>在Vue中注册组件</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <script src="../../../node_modules/vue/dist/vue.min.js"></script>
+    </head>
+    <body>
+            <template id="my-hello2">
+                <div>
+                    <ul>
+                        <li v-for="v in data">{{v}}</li>
+                    </ul>
+                </div>
+            </template>
+
+            <!-- extend创建的是一个组件构造器，而不是一个具体的组件实例。
+            所以他不能直接在new Vue中这样使用： new Vue({components: fuck}) -->
+        <div id="app">
+            <span id="testTick">{{testTick}}</span>
+
+
+            <todo :todo-data="groceryList" :test="test"></todo>
+            <my-hello name="laney" :list="groceryList"></my-hello>
+            <some-number></some-number>
+        </div>
+        <script>
+            window.onload = function(){
+                var myComponent = Vue.extend({
+                    template:`<h2>hello {{name}} -- {{sex}} </h2>`,
+                    props: ['name','list'],
+                    data(){
+                        return{
+                            sex:'女'
+                        }
+                    }
+                });
+
+                // 构建一个父组件
+                var todoWarp = Vue.extend({
+                    template: `
+                        <div>
+                            <ul>
+                                <li v-for="(item, index) in todoData">
+                                    {{item.text}}
+                                </li>  
+                            </ul>
+                        </div>
+                    `,
+                    props: ['todoData','test']
+                });
+                // 注册到全局
+                Vue.component('todo', todoWarp);
+                // Vue.component('my-hello',myComponent);
+
+                var vmm = new Vue({
+                    el: '#app',
+                    data(){
+                        return {
+                            test:'sss',
+                            testTick:'hello',
+                            groceryList: [
+                                { id: 0, text: '蔬菜' },
+                                { id: 1, text: '奶酪' },
+                                { id: 2, text: '随便其它什么人吃的东西' }
+                            ]    
+                        }
+                    },
+                    components:{
+                       'my-hello':myComponent,
+                        'some-number':{
+                            template:'#my-hello2',
+                            data(){
+                                return {
+                                    data:[1,4,8,0]
+                                }
+                            }
+                        }
+                    }
+                    
+                })
+
+                // nextTick
+
+                vmm.testTick = 'hello song';
+
+                setTimeout(()=>{
+                    var text = document.getElementById('testTick').innerHTML;
+                    console.log(1,text);
+                })
+                
+                Vue.prototype.$nextTick(function(){
+                    var text = document.getElementById('testTick').innerHTML;
+                    console.log(2,text);
+                })
+                
+                Vue.nextTick(function(){
+                    var text = document.getElementById('testTick').innerHTML;
+                    console.log(3,text);
+                })
+               
+                vmm.$nextTick(()=>{
+                    var text = document.getElementById('testTick').innerHTML;
+                    console.log(4,text);
+                })
+                
+
+            // 你可以添加一个新的 age 属性到嵌套的 userProfile 对象：
+            // 
+            // // 你还可以使用 vm.$set 实例方法，它只是全局 Vue.set 的别名：
+            // vm.$set(vm.textSet, 'age', 27)
+
+
+            }
+       
+            
+
+       </script>
+    </body>
+</html>

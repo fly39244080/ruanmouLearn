@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <script src="../../../node_modules/vue/dist/vue.min.js"></script>
+    </head>
+    <body style="height:2000px">
+        <div id="app">
+             <input type="text" v-pin:[direction]='250' />
+             <input type="text" v-focus @click.stop="showPopWin()" />
+
+            <div class="show" v-show="show" v-clickoutside="handleClose">
+                显示
+            </div>
+            
+            <div id="hook-arguments-example" v-demo:foo.a.b="message"></div>
+
+            <span v-loading="loadingNow">ssddd</span>
+            <span v-loading="loadingNow2">mmmm</span>
+        </div>
+        <script>
+            window.onload = function(){
+   
+                const clickoutside = {
+                    // 初始化指令
+                    bind(el, binding, vnode) {
+                        function documentHandler(e) {
+                            // 这里判断点击的元素是否是本身，是本身，则返回
+                            if (el.contains(e.target)) {
+                                return false;
+                            }
+                            // 判断指令中是否绑定了函数
+                            if (binding.expression) {
+                                // 如果绑定了函数 则调用那个函数，此处binding.value就是handleClose方法
+                                binding.value(e);
+                            }
+                        }
+                        // 给当前元素绑定个私有变量，方便在unbind中可以解除事件监听
+                        el.__vueClickOutside__ = documentHandler;
+                        document.addEventListener('click', documentHandler);
+                    },
+                    unbind(el, binding) {
+                        // 解除事件监听
+                        document.removeEventListener('click', el.__vueClickOutside__);
+                        delete el.__vueClickOutside__;
+                    },
+                };
+
+                // // 注册一个全局自定义指令 v-focus
+                // Vue.directive('focus', {
+                // // 当绑定元素插入到 DOM 中。
+                //     inserted: function (el) {
+                //         // 聚焦元素
+                //         el.focus()
+                //     }
+                // })
+
+                //把某个区域固定在哪里显示，通过direction控制方向
+                Vue.directive('pin', {
+                    bind: function (el, binding, vnode) {
+                        el.style.position = 'fixed'  
+                        var s = binding.arg;
+                        el.style[s] = binding.value + 'px'
+                    }
+                })
+
+
+                Vue.directive('demo', {
+                    bind: function (el, binding, vnode) {
+                        var s = JSON.stringify
+                        el.innerHTML =
+                        'name: '       + s(binding.name) + '<br>' +
+                        'value: '      + s(binding.value) + '<br>' +
+                        'expression: ' + s(binding.expression) + '<br>' +
+                        'argument: '   + s(binding.arg) + '<br>' +
+                        'modifiers: '  + s(binding.modifiers) + '<br>' +
+                        'vnode keys: ' + Object.keys(vnode).join(', ')
+                    }
+                    })
+
+                    Vue.directive('loading', {
+                        bind: (el, binding) => {
+                            const tempDiv = document.createElement('div');
+                            tempDiv.innerHTML = 'loading...'
+                            const round = document.createElement('div')
+                            round.className = 'loading-now';
+                            tempDiv.appendChild(round)
+                            
+                            el.loadingElement = tempDiv
+                            
+                            if (binding.value) {
+                                el.appendChild(tempDiv)
+                            }
+                        },
+                        update: (el, binding) => {
+                            if (binding.value) {
+                                if (el.loadingElement.parentNode === null) {
+                                    el.appendChild(el.loadingElement)
+                                }
+                            } else {
+                                if (el === el.loadingElement.parentNode) {
+                                    el.removeChild(el.loadingElement)
+                                }
+                            }
+                        },
+                        unbind: (el) => {
+                            if (el.loadingElement.parentNode === el) {
+                                el.removeChild(el.loadingElement)
+                            }
+                            el.loadingElement = null
+                        }
+                        })
+
+                window.vm = new Vue({
+                    el:'#app',
+                    data:{
+                        direction: 'right',
+                        show: true,
+                        message: 'hello!',
+                        loadingNow:true,
+                        loadingNow2:true
+                    },
+                    directives: {
+                        clickoutside:clickoutside,
+                        focus: {
+                            bind:function(el, binding, vnode){
+                                console.log('kkk');
+                            },
+                            // 指令的定义
+                            inserted: function (el) {
+                                console.log('uuu');
+                                el.focus()
+                            },
+                            update(){
+                                console.log('nnn');
+                            },
+                            componentUpdated(){
+                                console.log('mbb');
+                            }
+                        }
+                     },
+                     methods:{
+                        showPopWin(){
+                            this.show = true;
+                        },
+                        handleClose(){
+                            
+                            this.show = false;
+                        }
+                     }
+                });
+
+            
+                
+            
+            }
+           
+
+         </script>
+         <style >
+            .show {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+            }
+            </style>
+    </body>
+</html>

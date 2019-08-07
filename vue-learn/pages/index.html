@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+    <body>
+            <input type="text" id="text_input" />
+            <button type="button" id="copy_text">copy</button>
+        <div class="page-test01">
+            测试数据
+            ddd
+            ddd
+            
+        </div>
+
+        <div class="page-service">
+            <span class="title">这里是标题</span>
+            这里是利用scss 的样式的区域
+        </div>
+
+<script>
+
+window.onload = function(){
+    var inputElem = document.getElementById('text_input');
+    var btnElem = document.getElementById('copy_text');
+    btnElem.addEventListener('click', function() {
+    if(!document.execCommand) {
+        console.error('copy unsupport');
+        return;
+    }
+    inputElem.select();
+    var result = document.execCommand('copy');
+    if(result) {
+        console.log('copy success');
+    } else {
+        console.error('copy fail');
+    }
+    });
+}
+</script>
+    </body>
+</html>
+

@@ -1,0 +1,12 @@
+.idea/
+.vscode/
+node_modules/
+package-lock.json
+dist/
+test/e2e/reports/
+test/unit/coverage/
+yarn.lock
+.DS_Store
+**/.DS_Store
+src/.DS_Store
+src/**/**/.DS_Store

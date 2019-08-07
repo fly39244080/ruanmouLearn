@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <script src="../../../node_modules/vue/dist/vue.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <custom>
+                {{message}}
+                <div slot="one">替换组价内容一</div>
+                <div slot="three">替换组价内容三</div>
+            </custom>
+        </div>
+         
+<script>
+    Vue.component('custom',{
+        template:`
+            <div class="customStyle">
+                {{message}}
+                <slot name="one">
+                    <p>custom组件内容一</p>
+                    <p>custom组件内容二</p>
+                    <p>custom组件内容三</p>
+                </slot>
+              
+                <slot name="two"><p>custom组件内容二</p></slot>
+                <slot name="three"><p>custom组件内容三</p></slot>
+
+                <slot><p>我是无名的slot</p></slot>
+                我是外面的
+            </div>
+        `,
+        data(){
+            return {
+                message:'song song'
+            }
+        }
+        
+    })
+    new Vue({
+        el:'#app',
+        data(){
+            return {
+                message:'laney'
+            }
+        }
+    })
+    </script>  
+
+    </body>
+</html>
