@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>execCommand复制</title>
+</head>
+<body>
+    <button id="copyButton" >copyeeee</button>
+
+    <textarea  id="jiu_textarea">欢迎访问脚本之家,这里是快乐的家</textarea>
+
+ <script>
+// Javascript中document.execCommand()的用法
+// https://www.cnblogs.com/leong-min/p/6483523.html
+
+// document.execCommand('copy')
+// 根据兼容不同，执行后可能的情况（涉及返回值）：
+// 1.不支持execCommand：抛出异常          
+// 2.不支持copy方法：返回false                    
+// 3.成功：true
+
+document.getElementById('copyButton').addEventListener('click',function(){
+    var cpt = document.getElementById('jiu_textarea');
+    
+    //选中文本进行复制
+    if(document.selection){
+        var range=cpt.createTextRange();
+        range.select();
+    } else {
+        cpt.selectionStart=0;
+        cpt.selectionEnd=cpt.value.length;
+        cpt.focus();
+    }
+    document.execCommand('copy');
+
+},false);
+
+
+    </script>
+</body>
+</html>
