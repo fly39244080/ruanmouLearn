@@ -1,0 +1,57 @@
+.main-frame .left-nav {
+  width: auto;
+  height: auto;
+  float: none;
+  background: none;
+  margin-bottom: 15px;
+  li {
+    border-width:0px;
+    margin: 0 15px;
+    width:auto;
+    display: inline-block;
+    a {
+      font-size: 18px;
+      color: #0e050a;
+      &:hover {
+        background: none;
+      }
+      &.active {
+        border-bottom: 4px solid #ff9c1b;
+        background: transparent;
+        color: #ff9c1b;
+      }
+    }
+
+  }
+}
+
+.img-status{
+  padding: 20px 10px;
+  text-align: center;
+  width:189px;
+  height:107px;
+  display: inline-block;
+  margin:0 auto;
+  &.transfered {
+    background: url('../../images/sign/loanStatus/transfered.png') center center no-repeat;
+  }
+  &.transfercancel {
+    background: url('../../images/sign/loanStatus/transfercancel.png') center center no-repeat;
+  }
+  &.recheck {
+    background: url('../../images/sign/loanStatus/recheck.png') center center no-repeat;
+  }
+  &.cancel {
+    background: url('../../images/sign/loanStatus/cancel.png') center center no-repeat;
+  }
+  &.complete {
+    background: url('../../images/sign/loanStatus/complete.png') center center no-repeat;
+  }
+  &.overdue {
+    background: url('../../images/sign/loanStatus/overdue.png') center center no-repeat;
+  }
+  &.repaying {
+    background: url('../../images/sign/loanStatus/repaying.png') center center no-repeat;
+  }
+
+}

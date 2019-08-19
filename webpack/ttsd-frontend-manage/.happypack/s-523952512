@@ -1,0 +1,3 @@
+"use strict";
+
+require("activityStyle/invest_achievement.scss");

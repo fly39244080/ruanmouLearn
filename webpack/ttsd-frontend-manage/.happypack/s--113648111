@@ -1,0 +1,3 @@
+"use strict";
+
+require("activityStyle/sign_check.scss");

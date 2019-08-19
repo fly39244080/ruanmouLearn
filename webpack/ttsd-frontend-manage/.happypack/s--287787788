@@ -1,0 +1,13 @@
+'use strict';
+
+var commonFun = require('publicJs/commonFun');
+
+var $successBox = $('#successBox');
+var $countTime = $('.count-time', $successBox);
+
+commonFun.countDownLoan({
+    btnDom: $countTime,
+    time: 5
+}, function () {
+    window.location.href = '/personal-info';
+});

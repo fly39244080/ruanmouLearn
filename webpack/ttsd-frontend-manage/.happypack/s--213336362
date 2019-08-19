@@ -1,0 +1,79 @@
+'use strict';
+
+require("activityStyle/wechat/midsummer.scss");
+
+var $inviteBoxFriend = $('#inviteBoxFriend');
+var $inviteHeader = $('#inviteHeader');
+if ($inviteBoxFriend.length) {
+    var topImg = new Image();
+    topImg.src = require('../../images/midsummer/img-top.jpg');
+    topImg.onload = function () {
+        $inviteHeader.append(topImg);
+    };
+
+    //起投金额
+    var amountObj = {
+        '0': {
+            temp: '20',
+            amount: '20000',
+            progress: '26%'
+        },
+        '1': {
+            temp: '40',
+            amount: '10000',
+            progress: '44%'
+        },
+        '2': {
+            temp: '60',
+            amount: '5000',
+            progress: '62%'
+        },
+        '3': {
+            temp: '80',
+            amount: '2000',
+            progress: '77%'
+        },
+        '4': {
+            temp: '100',
+            amount: '50',
+            progress: '93%'
+        }
+    };
+
+    var inviteNumber = $('.invite-number', $inviteBoxFriend).val();
+    var tempProgress = $('.temp-progress', $inviteBoxFriend);
+    if (inviteNumber > 4 || inviteNumber == '') {
+        inviteNumber = '4';
+    }
+    var currentObj = amountObj[inviteNumber];
+    $('.temp-number', $inviteBoxFriend).text(currentObj.temp);
+    $('.from-invest', $inviteBoxFriend).text(currentObj.amount);
+
+    tempProgress.css({ "width": currentObj.progress });
+
+    //如果为100，改变温度的字体大小
+    if (currentObj.temp == '100') {
+        $('.temp-number', $inviteBoxFriend).css({ "font-size": "24px" });
+    }
+}
+
+//按钮点击呼起好友
+var $buttonLayer = $('#buttonLayer');
+var $FloatingBox = $('#FloatingBox');
+
+$FloatingBox.find('.btn-close').on('click', function (event) {
+    $FloatingBox.hide();
+});
+
+$buttonLayer.on('click', function (event) {
+    var targetName = event.target.className;
+
+    if (/btn-invite/.test(targetName)) {
+        //邀请微信好友
+        $FloatingBox.show();
+    } else if (/btn-help/.test(targetName)) {
+        //帮助TA
+        var mobile = $.trim($inviteHeader.data('mobile'));
+        location.href = '/activity/app-share?referrerMobile=' + mobile;
+    }
+});

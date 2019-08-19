@@ -1,0 +1,15 @@
+'use strict';
+
+require('webStyle/investment/invest_success.scss');
+
+var commonFun = require('publicJs/commonFun');
+
+var $successBox = $('#successBox');
+var $countTime = $('.count-time', $successBox);
+
+commonFun.countDownLoan({
+	btnDom: $countTime,
+	time: 3
+}, function () {
+	window.location.href = '/account';
+});
