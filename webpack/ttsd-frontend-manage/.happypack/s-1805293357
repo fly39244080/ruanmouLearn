@@ -1,7 +1,0 @@
-'use strict';
-
-require("activityStyle/lottery_intro.scss");
-var commonFun = require('publicJs/commonFun');
-
-var topimg = require('../images/lottery-intro/top-img.png');
-$('#topImg').find('img').attr('src', topimg);
