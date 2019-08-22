@@ -92,8 +92,8 @@ module.exports = {
     entry:newEntries,
     output: {
         filename: outFilename+'.js',
-        path:buildPath,
-        // path: path.resolve(buildPath,'js'), //错误
+        path:buildPath,   //正确
+        // path: path.resolve(buildPath,'js'), //课堂上的错误，路径配置错了
         publicPath:'/'
      },
      resolve: {
