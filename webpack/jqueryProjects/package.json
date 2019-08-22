@@ -6,11 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env scene=dev webpack-dev-server --config webpack.dev.js --mode development",
+    "start": "cross-env scene=dev webpack --config webpack.dev.js --mode development",
     "build": "rimraf build && cross-env scene=prod webpack --config webpack.dev.js --mode production"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "copy-webpack-plugin": "^5.0.4",
     "cross-env": "^5.2.0",
     "css-loader": "^3.2.0",
     "glob": "^7.1.4",
@@ -21,6 +23,7 @@
     "style-loader": "^1.0.0",
     "webpack": "^4.39.2",
     "webpack-cli": "^3.3.7",
-    "webpack-dev-server": "^3.8.0"
+    "webpack-dev-server": "^3.8.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0"
   }
 }
