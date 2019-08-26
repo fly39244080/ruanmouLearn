@@ -28,3 +28,12 @@ git fetch origin 远程分支名x:本地分支名x
 使用该方式会在本地新建分支x，但是不会自动切换到该本地分支x，需要手动checkout。
 
 采用此种方法建立的本地分支不会和远程分支建立映射关系。
+
+
+拉取远程分支：
+方式一： git fetch origin feature/fly/webpack
+git checkout feature/fly/webpack
+
+方式二： git checkout -b 本地分支名x origin/feature/fly/webpack
+使用该方式会在本地新建分支x，并自动切换到该本地分支x。
+
