@@ -1,0 +1,28 @@
+{
+  "name": "basic",
+  "version": "1.0.0",
+  "description": "basic info",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --mode development --config webpack.dev.js",
+    "build": "webpack --mode production --config webpack.dev.js"
+  },
+  "keywords": [
+    "webpack"
+  ],
+  "author": "laney",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "7",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "css-loader": "^3.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "jquery": "^3.4.1",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7"
+  }
+}
