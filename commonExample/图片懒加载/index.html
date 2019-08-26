@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片懒加载</title>
+    <style>
+    body {
+        text-align: center;
+    }
+
+    img {
+        width: 100%;
+        max-width: 300px;
+        height: 200px;
+        margin-bottom: 100px; 
+    }
+    </style>
+</head>
+<body>
+    <div id="imgBoxFrame" >
+          <div class="img-warpper">
+            <img class="lazyload" data-original="https://media3.giphy.com/media/k5GuJn7VslbpGQqHUB/200w.webp">
+          </div>
+          <div class="img-warpper">
+            <img class="lazyload" data-original="https://media1.giphy.com/media/2A7yoKf2B87kotTApZ/200w.webp">
+          </div>
+          <div class="img-warpper">
+            <img class="lazyload" data-original="https://media2.giphy.com/media/3h1rwFW1PpLxD9xLUR/200w.webp">
+          </div>
+          <div class="img-warpper">
+            <img class="lazyload" data-original="https://media0.giphy.com/media/igHgY3xzYxmRcxwZBs/200w.webp">
+          </div>
+          <div class="img-warpper">
+            <img class="lazyload" data-original="https://media0.giphy.com/media/69v5dFsLtzdpaFZz2N/200w.webp">
+          </div>
+    </div>
+    <script>
+    
+    // 图片懒加载类
+    class LazyLoad {
+        constructor(el) {
+            this.imglist = Array.from(document.querySelectorAll(el)); // 需使用懒加载的图片集合
+            this.init(); // 初始化
+        }
+        // 判断是否该图片是否可以加载
+        canILoad() {
+            let imglist = this.imglist,
+                len = imglist.length;
+            for (let i = len-1; i>=0; i--) {
+                // 缩写，相当于if true
+                this.getBound(imglist[i]) && this.loadImage(imglist[i], i);
+            }
+        }
+        // 获取图片与窗口的信息
+        getBound(el) {
+            let bound = el.getBoundingClientRect();
+            let clientHeight = window.innerHeight;
+            // 图片距离顶部的距离 <= 浏览器可视化的高度，从而推算出是否需要加载
+            return bound.top <= clientHeight - 100; // -100是为了看到效果，您也可以去掉
+        }
+        // 加载图片
+        loadImage(el, index) {
+            // 获取之前设置好的data-original值
+            let src = el.getAttribute('data-original');
+            // 赋值到src，从而请求资源
+            el.src = src;
+            // 避免重复判断，已经确定加载的图片应当从imglist移除
+            this.imglist.splice(index, 1);
+        }
+        // 当浏览器滚动的时候，继续判断
+        bindEvent() {
+            window.addEventListener('scroll', () => {
+                this.imglist.length && this.canILoad();
+            });
+        }
+        // 初始化
+        init() {
+            this.canILoad();
+            this.bindEvent();
+        }
+    }
+
+    // 实例化对象，参数则是需要使用懒加载的图片类名
+    const lazy = new LazyLoad('.lazyload')
+
+    </script>
+</body>
+</html>

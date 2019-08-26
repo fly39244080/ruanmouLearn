@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jquery方式实现懒加载</title>
+    <script src="https://cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+</head>
+<body>
+    
+    <!-- 先将img标签的src链接设为同一张图片（比如空白图片），然后给img标签设置自定义属性（比如 data-src）,
+    然后将真正的图片地址存储在data-src中，当JS监听到该图片元素进入可视窗口时，
+    将自定义属性中的地址存储到src属性中。达到懒加载的效果。
+这样做能防止页面一次性向服务器发送大量请求，导致服务器响应面，页面卡顿崩溃等。 -->
+   
+    <style>
+        body {
+        text-align: center;
+        }
+
+        img {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            margin-bottom: 100px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="img-warpper">
+            <img src="./timg.gif" data-src="https://media3.giphy.com/media/k5GuJn7VslbpGQqHUB/200w.webp">
+          </div>
+          <div class="img-warpper">
+            <img src="./timg.gif" data-src="https://media1.giphy.com/media/2A7yoKf2B87kotTApZ/200w.webp">
+          </div>
+          <div class="img-warpper">
+            <img src="./timg.gif" data-src="https://media2.giphy.com/media/3h1rwFW1PpLxD9xLUR/200w.webp">
+          </div>
+          <div class="img-warpper">
+            <img src="./timg.gif" data-src="https://media0.giphy.com/media/igHgY3xzYxmRcxwZBs/200w.webp">
+          </div>
+          <div class="img-warpper">
+            <img src="./timg.gif" data-src="https://media0.giphy.com/media/69v5dFsLtzdpaFZz2N/200w.webp">
+          </div>
+    </div>
+
+        <script>
+
+            // 一开始没有滚动的时候，出现在视窗中的图片也会加载
+            start();
+
+            // 当页面开始滚动的时候，遍历图片，如果图片出现在视窗中，就加载图片
+            var clock; //函数节流
+            $(window).on('scroll',function(){
+                if(clock){
+                    clearTimeout(clock);
+                }
+                clock = setTimeout(function(){
+                    start()
+                },200)
+            })
+            
+            function start(){
+                 $('.container img').not('[data-isLoading]').each(function () {
+                    if (isShow($(this))) {
+                        loadImg($(this));
+                    }
+                })
+            }
+
+            // 判断图片是否出现在视窗的函数
+            function isShow($node){
+                return $node.offset().top <= $(window).height()+$(window).scrollTop();
+            }
+
+            // 加载图片的函数，就是把自定义属性data-src 存储的真正的图片地址，赋值给src
+            function loadImg($img){
+                    $img.attr('src', $img.attr('data-src'));
+                    // 已经加载的图片，我给它设置一个属性，值为1，作为标识
+                    // 弄这个的初衷是因为，每次滚动的时候，所有的图片都会遍历一遍，这样有点浪费，
+                    // 所以做个标识，滚动的时候只遍历哪些还没有加载的图片
+                    $img.attr('data-isLoading',1);
+            }
+
+        </script>
+
+</body>
+</html>
