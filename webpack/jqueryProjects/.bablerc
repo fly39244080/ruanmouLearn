@@ -1,0 +1,12 @@
+{
+    "presets": [
+        ["env","stage-3", {
+            "targets": {
+                "browsers": [ "ie >= 8", "chrome >= 62" ] 
+              },
+            "modules": false,  
+            "useBuiltIns": "usage", 
+            "debug": false  
+        }]
+    ]
+}
