@@ -9,6 +9,11 @@ const extractTextPlugin = require('extract-text-webpack-plugin');
 const baseWebpackConfig = require('./webpack.common.js');
 
 var buildPath = path.resolve(__dirname,'build');
+// 引入 happypack
+const HappyPack = require('happypack');
+
+// 创建 happypack 共享进程池，其中包含 6 个子进程
+const happyThreadPool = HappyPack.ThreadPool({ size: 6 });
 
 var pluginsAll2 = [];
 // 同步读取文件夹里的文件
@@ -26,10 +31,30 @@ pages.forEach(function(page){
     })
     pluginsAll2.push(plug);
 })
-pluginsAll2.push(new extractTextPlugin("styles/[name].[chunkhash].css"))
+pluginsAll2.push(new extractTextPlugin("styles/[name].[chunkhash].css"));
+pluginsAll2.push(new HappyPack({
+          //用id来标识 happypack处理那里类文件
+          id: 'babel',
+          //如何处理  用法和loader 的配置一样
+    //       loaders:['css-loader','less-loader'],
+          loaders: [{
+            loader: 'babel-loader?cacheDirectory=true',
+          }],
+          //共享进程池
+          threadPool:happyThreadPool,
+          verbose: true    //允许 HappyPack 输出日志
+        }));
 
-console.log('----------');
-console.log(pluginsAll2);
+    pluginsAll2.push(new HappyPack({
+              //用id来标识 happypack处理那里类文件
+              id: 'styles',
+              //如何处理  用法和loader 的配置一样
+              loaders:['css-loader','postcss-loader','less-loader'],
+
+              //共享进程池
+              threadPool:happyThreadPool,
+              verbose: true    //允许 HappyPack 输出日志
+            }));
 
  var teat = merge(baseWebpackConfig,{
    optimization: {
@@ -62,17 +87,18 @@ console.log(pluginsAll2);
             test:/\.less$/,
             //抽出css
             use:extractTextPlugin.extract({
-                  use:[
-                        {loader:'css-loader'},
-                        {loader:'postcss-loader'
-                           //, options:{
-                           //     plugins:[
-                           //         require("autoprefixer")
-                           //       ]
-                           // }
-                        },
-                        {loader:'less-loader'}    
-                  ],
+                //   use:[
+                //         {loader:'css-loader'},
+                //         {loader:'postcss-loader'
+                //            //, options:{
+                //            //     plugins:[
+                //            //         require("autoprefixer")
+                //            //       ]
+                //            // }
+                //         },
+                //         {loader:'less-loader'}    
+                //   ],
+                  use:'happypack/loader?id=styles',
                   fallback:'style-loader'
                })
                //方式一
@@ -86,13 +112,13 @@ console.log(pluginsAll2);
          },
             { 
                 test:/\.(jsx|js)$/, 
-                use:[{ loader:'babel-loader' }], 
+                // use:[{ loader:'babel-loader' }], 
+                use:'happypack/loader?id=babel',
                 exclude:/node_modules/ 
             }
         ]
      },
      plugins:pluginsAll2
 })
-// console.log('--------------');
-// console.dir(teat.module.rules[2])
+
 module.exports = teat

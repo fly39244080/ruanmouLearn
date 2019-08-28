@@ -28,8 +28,6 @@ pages.forEach(function(page){
 
 pluginsAll2.push(new extractTextPlugin("styles/[name].css"))
 
-console.log('----------');
-console.log(pluginsAll2);
 module.exports = merge(baseWebpackConfig,{
     output: {
         filename: '[name].js',

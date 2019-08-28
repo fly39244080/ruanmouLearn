@@ -50,8 +50,12 @@ pluginsAll.push(new CopyWebpackPlugin([
     $:'jquery',
     jQuery:'jquery'
   }));
-  
-  
+
+  pluginsAll.push(new webpack.DllReferencePlugin({
+      context: __dirname,
+      manifest: require('./vender-mainfest.json')
+  })); 
+
 // 异步读取文件夹里的文件
 //  fs.readdir(htmlPagesPath,function(err,files){
 //     console.log(files);
@@ -61,6 +65,9 @@ module.exports = {
     //入口的配置文件
     // entry: './src/index.js',   //方式一
     // entry: ['./src/index.js','./src/main.js'], //方法二
+    performance: {
+      hints: false
+    },
     entry:newEntries,
      resolve: {
         extensions: ['.js', '.vue', '.json'],

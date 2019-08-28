@@ -10,18 +10,24 @@ var apiUrl = {
 };
 
 // apiUrl[sceneParam].product 
+// debugger
+// window.jQuery = window.$ = window.vender_library(1);
+// window.layer = window.vender_library(2);
+
 var commonFun = {};
 commonFun.test = function(){
 
 }
-commonFun.ajaxFun=function(obj){
-    // $.ajax({
-     //     url:apiUrl[sceneParam] +obj.url,
-    //     type:'post',
-    //     data:''
-    // }).then(()=>{
-    //     console.log('oo');
-    // })
+commonFun.ajaxFun=function(obj,callback){
+    $.ajax({
+         url:apiUrl[sceneParam] +obj.url,
+        type:obj.type?obj.type:'post',
+        data:JSON.stringify(obj.params),
+        contentType:'application/json'
+    }).then(()=>{
+        console.log('oo');
+        callback && callback(data);
+    })
 }
 
 
