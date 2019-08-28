@@ -10,8 +10,11 @@ var apiUrl = {
 };
 
 // apiUrl[sceneParam].product 
+var commonFun = {};
+commonFun.test = function(){
 
-export default function ajaxFun(obj){
+}
+commonFun.ajaxFun=function(obj){
     // $.ajax({
      //     url:apiUrl[sceneParam] +obj.url,
     //     type:'post',
@@ -20,5 +23,8 @@ export default function ajaxFun(obj){
     //     console.log('oo');
     // })
 }
+
+
+export default commonFun;
 
 

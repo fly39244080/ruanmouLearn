@@ -1,5 +1,5 @@
 const path = require('path');
-const fs = require('fs');
+
 const glob = require('glob');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -32,24 +32,6 @@ if(!isProduction) {
     buildPath = path.resolve(__dirname,'dev');
 } 
 
-// console.log(newEntries)
-var htmlWebpackPlugin = require('html-webpack-plugin'); //需要在项目环境安装webpack
-
-// 同步读取文件夹里的文件
-var pages = fs.readdirSync(htmlPagesPath); 
-pages.forEach(function(page){
-    var name = page.split('.')[0];
-    var plug = new htmlWebpackPlugin({
-        filename:path.resolve(buildPath,page),
-        title:'测试',
-        template:path.resolve(htmlPagesPath,page),
-        inject:true,
-        chunks:[name],
-        favicon: path.resolve(__dirname, './fav.ico') 
-    })
-    pluginsAll.push(plug);
-})
-
 pluginsAll.push(new webpack.DefinePlugin({
     'sceneParam': JSON.stringify(process.env.scene),
     'laney':JSON.stringify('laney'),
@@ -58,7 +40,17 @@ pluginsAll.push(new webpack.DefinePlugin({
 
 pluginsAll.push(new CopyWebpackPlugin([ 
     { from: path.resolve(__dirname,'./static'), to: buildPath+'/static' }
-  ]))
+  ]));
+
+  pluginsAll.push(new webpack.ProvidePlugin({
+    // config:path.resolve(srcPath,'js/config.js')
+    // config:'config'
+    // config:['config','default'],
+    config:[path.resolve(srcPath,'js/config.js'),'default'],
+    $:'jquery',
+    jQuery:'jquery'
+  }));
+  
   
 // 异步读取文件夹里的文件
 //  fs.readdir(htmlPagesPath,function(err,files){
@@ -75,7 +67,8 @@ module.exports = {
         alias: {
           'src': srcPath,
           'styles': srcPath+'/styles',
-          'images':srcPath+'/images'
+          'images':srcPath+'/images',
+          'config':path.resolve(srcPath,'js/config.js')
         }
       },
      //模块，处理各种loader
@@ -87,25 +80,6 @@ module.exports = {
             //     use:[{loader:'style-loader'},{loader:'css-loader}]
             // },
             {
-                test:/\.less$/,
-                //抽出css
-                use:extractTextPlugin.extract({
-                    use:[
-                         {loader:'css-loader'},
-                         {loader:'less-loader'}
-                    ],
-                    fallback:'style-loader'
-                })
-                //方式一
-                // use:['style-loader','css-loader','less-loader'], 
-                //方式二
-                // use:[
-                //     {loader:'style-loader'},
-                //     {loader:'css-loader'},
-                //     {loader:'less-loader'}
-                // ]
-            },
-            {
                 test:/\.(png|jpg|gif|jpeg)/, //是匹配图片文件后缀名称
                 use:[{
                     loader:'url-loader', //是指定使用的loader和loader的配置参数
@@ -116,11 +90,6 @@ module.exports = {
                         // publicPath: "http:/33.33.3.3.3/"
                     }
                 }]
-            },
-            { 
-                test:/\.(jsx|js)$/, 
-                use:[{ loader:'babel-loader' }], 
-                exclude:/node_modules/ 
             }
         ]
      },
