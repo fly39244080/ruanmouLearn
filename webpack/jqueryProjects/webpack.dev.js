@@ -13,6 +13,7 @@ var pluginsAll2 = [];
 
 // 同步读取文件夹里的文件
 var pages = fs.readdirSync(htmlPagesPath); 
+
 pages.forEach(function(page){
     var name = page.split('.')[0];
     var plug = new htmlWebpackPlugin({
@@ -23,6 +24,7 @@ pages.forEach(function(page){
         chunks:[name],
         favicon: path.resolve(__dirname, './fav.ico') 
     })
+    
     pluginsAll2.push(plug);
 })
 

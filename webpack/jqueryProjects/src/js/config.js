@@ -14,6 +14,11 @@ var apiUrl = {
 // window.jQuery = window.$ = window.vender_library(1);
 // window.layer = window.vender_library(2);
 
+window.jQuery = window.$ = vendor_library('./node_modules/jquery/dist/jquery.js');
+window._ = window._ = vendor_library('./node_modules/underscore/underscore.js');
+window.globalCom  = vendor_library('./node_modules/webpack/buildin/global.js');
+window.Vue = vendor_library('./node_modules/vue/dist/vue.runtime.esm.js');
+
 var commonFun = {};
 commonFun.test = function(){
 

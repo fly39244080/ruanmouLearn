@@ -7,6 +7,7 @@ import _ from 'underscore';
 // console.log(commFun);
 // commFun.ajaxFun
 // import $ from 'jquery';
+debugger
 
 $('#topMenu').on('click',function(ev){
     require.ensure([], function(require){

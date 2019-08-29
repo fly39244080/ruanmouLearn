@@ -47,14 +47,15 @@ pluginsAll.push(new CopyWebpackPlugin([
     // config:'config'
     // config:['config','default'],
     config:[path.resolve(srcPath,'js/config.js'),'default'],
-    $:'jquery',
-    jQuery:'jquery'
+    // $:'jquery',
+    // jQuery:'jquery'
   }));
 
-  pluginsAll.push(new webpack.DllReferencePlugin({
-      context: __dirname,
-      manifest: require('./vender-mainfest.json')
-  })); 
+  //这个主要是将生成的vendor.dll.js文件加上hash值插入到页面中。
+  // pluginsAll.push(new webpack.DllReferencePlugin({
+  //     context: __dirname,
+  //     manifest: require('./vendor-manifest.json')
+  // })); 
 
 // 异步读取文件夹里的文件
 //  fs.readdir(htmlPagesPath,function(err,files){

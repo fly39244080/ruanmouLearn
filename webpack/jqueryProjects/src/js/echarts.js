@@ -1,7 +1,6 @@
 // import echarts from 'echarts';
 
 console.log(echarts);
-
 // 基于准备好的dom，初始化echarts实例
 var myChart = echarts.init(document.getElementById('mainBar'));
 myChart.showLoading();
