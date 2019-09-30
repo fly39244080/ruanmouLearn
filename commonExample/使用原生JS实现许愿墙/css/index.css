@@ -1,0 +1,42 @@
+.cards {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 150px;
+}
+
+.item {
+    width: 170px;
+    height: 170px;
+    box-sizing: border-box;
+    padding: 15px;
+    position: absolute;
+    border-radius: 5px;
+    cursor: move;
+}
+
+.close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+}
+
+.text {
+    font-size: 1.2em;
+    padding: 0 10px;
+    width: 250px;
+    height: 40px;
+    bottom: 40px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+}
+
+.text:focus {
+    outline: none;
+}

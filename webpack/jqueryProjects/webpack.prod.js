@@ -39,7 +39,6 @@ pluginsAll2.push(new HappyPack({
           //用id来标识 happypack处理那里类文件
           id: 'babel',
           //如何处理  用法和loader 的配置一样
-    //       loaders:['css-loader','less-loader'],
           loaders: [{
             loader: 'babel-loader?cacheDirectory=true',
           }],
@@ -60,27 +59,27 @@ pluginsAll2.push(new HappyPack({
             }));
 
  var teat = merge(baseWebpackConfig,{
-   optimization: {
-      splitChunks: {
-          cacheGroups: {
-              vendor: {
-                  name: "vendor",
-                  test: /[\\/]node_modules[\\/]/,
-                  chunks: "all",
-                  priority: 10 // 优先级
-              },
-              common: {
-                  name: "common",
-                  test: /[\\/]src[\\/]/,
-                  minSize: 1024,
-                  chunks: "all",
-                  priority: 5
-              }
-          }
-      }
-  },
+//    optimization: {
+//       splitChunks: {
+//           cacheGroups: {
+//               vendor: {
+//                   name: "vendor",
+//                   test: /[\\/]node_modules[\\/]/,
+//                   chunks: "all",
+//                   priority: 10 // 优先级
+//               },
+//               common: {
+//                   name: "common",
+//                   test: /[\\/]src[\\/]/,
+//                   minSize: 1024,
+//                   chunks: "all",
+//                   priority: 5
+//               }
+//           }
+//       }
+//   },
     output: {
-        filename: '[name].[chunkhash].js',
+        filename: 'js/[name].[chunkhash].js',
         path:buildPath,  
         publicPath:'./'
      },

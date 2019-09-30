@@ -10,19 +10,15 @@ var htmlWebpackPlugin = require('html-webpack-plugin');
 const baseWebpackConfig = require('./webpack.common.js');
 var htmlPagesPath = path.resolve(__dirname,'pages');
 var buildPath = path.resolve(__dirname,'dev');
-var pluginsAll2 = [];
 
+var pluginsAll2 = [];
 // 同步读取文件夹里的文件
 // var pages = fs.readdirSync(htmlPagesPath); 
 var pages = glob.sync(path.join(htmlPagesPath,'**/*.html')); 
 
 pages.forEach(function(page){
-
-    // console.log(page);
     var pagestr = page.match(/pages\/(\S*)\.html/);
     var name = pagestr[1];
-
-    // var name = page.split('.')[0];
     var plug = new htmlWebpackPlugin({
         filename:path.resolve(buildPath,name+'.html'),
         title:'测试',
@@ -67,12 +63,10 @@ module.exports = merge(baseWebpackConfig,{
         useLocalIp:true,
         proxy: {
             "/api": {
-              target: "http://new.mis.ebao.vip/api/app",
+              target: "http://localhost:3000",  //接口的服务
               secure: false
             }
           }
     },
     plugins:pluginsAll2
 })
-
-// http://new.mis.ebao.vip/api/app

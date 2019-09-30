@@ -1,13 +1,4 @@
-var apiUrl = {
-    // dev:{
-    //     product:'http://39.105.171.16:8085/',
-    //     login:'http://39.105.171.16:8082/',
-    //     check:'http://39.105.171.16:8082/'
-    // },
-    dev:'http://39.105.171.16:8085/',
-    prod:'http://localhost:5001/',
-    test:'http://localhost:5002/'
-};
+
 
 // apiUrl[sceneParam].product 
 window.jQuery = window.$ = vendor_library('./node_modules/jquery/dist/jquery.js');
@@ -20,6 +11,7 @@ commonFun.test = function(){
 
 }
 commonFun.ajaxFun=function(obj,callback){
+    console.log(obj);
     $.ajax({
          url:apiUrl[sceneParam] +obj.url,
         type:obj.type?obj.type:'post',

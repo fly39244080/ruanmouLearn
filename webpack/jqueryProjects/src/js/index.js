@@ -7,8 +7,6 @@ console.log(config);
 // commFun.ajaxFun
 // import $ from 'jquery';
 
-debugger
-
 // var mk = Vue.default;
 // var vm = new mk({
 //     data(){
@@ -40,3 +38,13 @@ window.addEventListener('hashchange',function(){
     $('#mainContent').load(hashK+'.html');
     
 },false);
+
+config.ajaxFun({
+    url:'/api/getColorOrsize',
+    type:'get'
+},function(data){
+    console.log(data);
+})
+
+
+

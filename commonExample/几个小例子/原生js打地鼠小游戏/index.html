@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			* {
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.mouses {
+				width: 800px;
+				margin: 0px auto;
+			}
+			
+			.toolbar,
+			.start {
+				height: 60px;
+				line-height: 60px;
+				color: white;
+				background-color: #7cd3b1;
+				border: 2px solid #60a58a;
+				border-top: none;
+			}
+			
+			.levels{
+				padding-left: 30px;
+				
+			}
+			
+			.tLeft {
+				float: left;
+				margin-left: 40px;
+			}
+			
+			.tRight {
+				float: right;
+				margin-right: 40px;
+			}
+			
+			.mouse {
+				width: 20%;
+				float: left;
+			}
+			
+			.start {
+				clear: both;
+				text-align: center;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mouses">
+			<div class="toolbar">
+				<div class="tLeft">
+					<span id="time">60</span>秒
+				    <span class="levels">
+				    	难易程度
+				    	<select id="level">
+				    		<option   value="2000"  selected="selected">容易</option>
+				    		 <option value="500">适中</option>
+				    		<option value="100">困难</option>
+				    	</select>
+				    </span>
+				</div>
+				
+				<div class="tRight">
+					打中<span id="num">0</span>个
+				</div>
+			</div>
+			<div>
+				<img src="img/mouse.png" class="mouse" name="mouse" onclick="clickMouse(this)" />
+				<img src="img/mouse.png" class="mouse" onclick="clickMouse(this)" />
+				<img src="img/mouse.png" class="mouse" onclick="clickMouse(this)" />
+				<img src="img/mouse.png" class="mouse" onclick="clickMouse(this)" />
+				<img src="img/mouse.png" class="mouse" onclick="clickMouse(this)" />
+				<img src="img/mouse.png" class="mouse" onclick="clickMouse(this)" />
+
+				<img src="img/mouse.png" class="mouse" onclick="clickMouse(this)" />
+
+				<img src="img/mouse.png" class="mouse"  onclick="clickMouse(this)"/>
+				<img src="img/mouse.png" class="mouse"  onclick="clickMouse(this)" />
+
+				<img src="img/mouse.png" class="mouse" onclick="clickMouse(this)" />
+				<img src="img/mouse.png" class="mouse" onclick="clickMouse(this)" />
+
+				<img src="img/mouse.png" class="mouse"  onclick="clickMouse(this)"/>
+				<img src="img/mouse.png" class="mouse" onclick="clickMouse(this)" />
+
+				<img src="img/mouse.png" class="mouse" onclick="clickMouse(this)" />
+
+				<img src="img/mouse.png" class="mouse"  onclick="clickMouse(this)"/>
+				<img src="img/mouse.png" class="mouse" onclick="clickMouse(this)" />
+				<img src="img/mouse.png" class="mouse" onclick="clickMouse(this)" />
+				<img src="img/mouse.png" class="mouse" onclick="clickMouse(this)" />
+				<img src="img/mouse.png" class="mouse" onclick="clickMouse(this)" />
+				<img src="img/mouse.png" class="mouse"  onclick="clickMouse(this)"/>
+			</div>
+			<div class="start" onclick="showMouse()">开始游戏</div>
+		</div>
+		<script>
+			//定义一个统计大众地鼠数量的变量
+			var  num=0;
+			//定义一个让地鼠冒出来的定时器
+			var t;
+			//定义一个让地鼠缩回去的定时器
+			var t1;
+			//点击开始游戏的事件
+			//定义地鼠洞的图片
+			var mouse1 = "img/mouse.png";
+			//定义地鼠冒出来的图片
+			var mouse2 = "img/mouse2.png";
+			//定义一个地鼠打中的图片
+			var mouse3 = "img/mouse3.png";
+			//地方你故意一个初始的时间
+			var  time=60;
+			function showMouse() {
+				//游戏重置
+				reset();
+				//获取到地鼠洞的个数
+				var nums = document.getElementsByClassName("mouse").length;
+				//获取游戏的难易程度
+				var level=getById("level").value;
+				//第一步让地鼠冒出来
+				t = setInterval(function() {
+					time--;
+					getById("time").innerText=time;
+					//判断如果时间等于0,游戏结束
+					if(time==0){
+						//清楚让地鼠冒出来的定时器
+                      clearInterval(t);
+                      clearTimeout(t1);
+					}
+					//生成一个0到地鼠个数减1的随机数 
+					var rad = parseInt(Math.random() * nums);
+					//让地鼠冒出来
+					document.getElementsByClassName("mouse")[rad].src = mouse2;
+					t1 = setTimeout(function() {
+						//让地鼠缩回去 
+						document.getElementsByClassName("mouse")[rad].src = mouse1;
+					}, level);
+				}, 1000);
+			}
+			//点击每一只地鼠的事件
+			function clickMouse(e) {
+				//判断地鼠是否冒出来(判断当前点击的图片是否是地鼠冒出来的图片)
+				if(e.src.indexOf(mouse2)!=-1){
+				    num++;
+				    getById("num").innerText=num;
+					e.src = mouse3;
+				}
+			}
+            			//根据Id返回标签的对象			
+			function getById(id){
+				return document.getElementById(id);
+			}
+			
+			//游戏重置
+			function reset(){
+				time=60;
+				getById("time").innerText=60;
+				num=0;
+				getById("num").innerHTML=num;
+				clearInterval(t);
+				clearTimeout(t1);
+			}
+		</script>
+	</body>
+</html>

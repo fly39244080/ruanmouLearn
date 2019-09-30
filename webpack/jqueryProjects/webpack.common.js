@@ -94,8 +94,8 @@ module.exports = {
                     options:{
                         name: "[name].[hash:5].[ext]",
                         outputPath: "img",
-                        limit:1024 //是把小于500B的文件打成Base64的格式，写入JS
-                        // publicPath: "http:/33.33.3.3.3/"
+                        limit:1024, //是把小于500B的文件打成Base64的格式，写入JS
+                        publicPath: "/img"
                     }
                 }]
             }

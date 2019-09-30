@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tree</title>
+</head>
+<body>
+    <script>   
+        var data = [{
+            id:'01',
+            name: 'IT互联网',
+            score:1,
+            child: [{
+                    name: '编辑语言',
+                    id:'01-1',
+                    score:1,
+                    child: [{
+                        name: 'java',
+                        id:'01-1-1',
+                        score:1,
+                        child:[{
+                            name: 'java1',
+                            id:'01-1-1-1',
+                            score:1,  
+                        },{
+                            name: 'java2',
+                            id:'01-1-1-2',
+                            score:1,  
+                        }]    
+                    },{
+                        name: 'c#/.net',
+                        id:'01-1-2',
+                        score:1
+                    }, {
+                        name: 'python',
+                        id:'01-1-3',
+                        score:1
+                    }]
+                },
+                {
+                    name: '移动开发',
+                    score:1,
+                    id:'01-2',
+                    child: [{
+                        name: 'android开发',
+                        id:'01-2-1',
+                        score:1
+                    }, {
+                        name: 'IOS开发',
+                        id:'01-2-2',
+                        score:1
+                    }]
+                }
+            ]
+        },
+       
+    ];
+
+    var countTotal = 0;
+    function createTree1(data){
+        var comn = data.length; 
+        // countTotal += comn;
+        // data.score = countTotal;
+        for (var i = 0; i < data.length; i++) {
+            if(data[i].child){   
+                data[i].score += data[i].child.length;
+                createTree1(data[i].child);
+            } 
+         }
+         return data;
+    }
+    var vm = createTree1(data);
+    // vm.score = countTotal;
+    debugger
+    // console.log(countTotal)
+
+    // $(function() {
+    //     //递归
+
+    //     function createTree(data) {
+    //         var str = '<ul>';
+    //         for (var i = 0; i < data.length; i++) {
+    //             str += '<li><span>-</span>' + data[i].name;
+    //             if (data[i].child) {
+    //                 str += createTree(data[i].child);
+    //             }
+    //             str += '</li>';
+    //         };
+    //         str += '</ul>';
+    //         return str;
+    //     };
+    //     $(".lists").html(createTree(data));
+
+      
+    // })
+    </script>
+</body>
+</html>

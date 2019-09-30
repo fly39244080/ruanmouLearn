@@ -1,0 +1,20 @@
+{
+  "name": "webpack",
+  "version": "1.0.0",
+  "description": "learn",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config ./build/webpack.config.js --mode production",
+    "dev": "webpack-dev-server --config ./build/webpack.config.js --mode development "
+  },
+  "author": "laney",
+  "license": "ISC",
+  "devDependencies": {
+    "glob": "^7.1.4",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.1"
+  }
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			* {
+				padding: 0px;
+				margin: 0px;
+			}
+			.mouses-box {
+				width: 600px;
+				margin: 0px auto;
+			}
+			.toolbar,
+			.start {
+				height: 60px;
+				line-height: 60px;
+				color: white;
+				background-color: #7cd3b1;
+				border: 2px solid #60a58a;
+				border-top: none;
+			}
+			.levels{
+				padding-left: 30px;
+			}
+			
+			.tLeft {
+				float: left;
+				margin-left: 40px;
+			}
+			
+			.tRight {
+				float: right;
+				margin-right: 40px;
+			}
+			
+			.mouse {
+				display: block;
+				width: 120px;
+				height: 120px;
+				background: url('./img/mouse.png') left top no-repeat;
+				background-size: 100%;
+				float: left;
+			}
+			.mouse.out {
+				display: block;
+				width: 120px;
+				height: 120px;
+				background: url('./img/mouse2.png') left top no-repeat;
+				background-size: 100%;
+				float: left;
+			}
+			.mouse.hit {
+				display: block;
+				width: 120px;
+				height: 120px;
+				background: url('./img/mouse3.png') left top no-repeat;
+				background-size: 100%;
+				float: left;
+			}
+			.start {
+				clear: both;
+				text-align: center;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mouses-box">
+			<div class="toolbar">
+				<div class="tLeft">
+					<span id="time">60</span>秒
+				    <span class="levels">
+				    	难易程度
+				    	<select id="level">
+				    		<option value="2000"  selected="selected">容易</option>
+				    		<option value="500">适中</option>
+				    		<option value="100">困难</option>
+				    	</select>
+				    </span>
+				</div>	
+				<div class="tRight">
+					打中<span id="numHit">0</span>个
+				</div>
+			</div>
+			<div id="mouseFrame">
+				<span class="mouse"></span>
+				<span class="mouse"></span>
+				<span class="mouse"></span>
+				<span class="mouse"></span>
+				<span class="mouse"></span>
+				<span class="mouse"></span>
+				<span class="mouse"></span>
+				<span class="mouse"></span>
+				<span class="mouse"></span>
+				<span class="mouse"></span>
+            </div>
+            <div class="start" onclick="resetGame()">结束游戏</div>
+			<div class="start" onclick="showMouse()">开始游戏</div>
+		</div>
+		<script>
+			//定义一个统计大众地鼠数量的变量
+			var  numtotal=0;
+			//定义一个让地鼠冒出来的定时器
+			var timerOut;
+			//点击开始游戏的事件	
+			var mouseFrame = getById('mouseFrame');	
+        
+            function showMouse(){
+                
+                var level = getById('level').value;
+                var time = 60; //总的时间
+                //获取地洞的个数
+                var nums = mouseFrame.children.length;
+
+                //重置游戏
+                resetGame();
+                timerOut = setInterval(function(){
+                    time = time-1;
+                    getById('time').innerText = time;
+                    if(time==0) {
+                        clearInterval(timerOut);
+                    }
+                    var rad = parseInt(Math.random() * nums);
+                    //让地鼠冒出来
+                   var curmouse =  mouseFrame.children[rad];
+                   curmouse.className = 'mouse out';
+
+                   setTimeout(function(){
+                        curmouse.className = 'mouse';
+                   },level)
+                },1000)
+            }
+            //点击每一只地鼠的事件
+            mouseFrame.addEventListener('click',function(ev){
+                var target = ev.target,
+                    clsName = target.className;
+                    //判断地鼠是否冒出来
+                    
+                    if(clsName.indexOf('out')!=-1){
+                        target.className = 'mouse hit';
+                        getById('numHit').innerText = ++numtotal;
+                    }
+                
+            })
+
+            //重置游戏
+            function resetGame(){
+                clearInterval(timerOut);
+                time = 60;
+                getById('time').innerText = 60;
+                getById('numHit').innerText = 0;
+            }
+			//根据Id返回标签的对象			
+			function getById(id){
+				return document.getElementById(id);
+			}
+		</script>
+	</body>
+</html>

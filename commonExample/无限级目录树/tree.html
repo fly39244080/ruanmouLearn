@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>demo</title>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+  </head>
+  <body>
+    <div class='lists'>
+      <!--<ul>
+          <li>a
+            <ul>
+              <li>a1
+                <ul>
+                  <li>a1-1
+                    <ul>
+                      <li>a1-1-1</li>
+                    </ul>
+                  </li>
+                  <li>a1-2</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>b
+            <ul>
+              <li>b1</li>
+            </ul>
+          </li>
+          <li>c</li>
+          <li>d</li>
+        </ul>-->
+        
+    </div> 
+    <div class="d1">d1
+            <div class="d2">d2
+                <div class="d3">d3
+          
+                </div>
+            </div>
+        </div>
+    <script type="text/javascript">
+    $(".d1").click(function(){
+      console.log('d1');
+    });
+    $(".d2").click(function(){
+      console.log('d2');
+    });
+    $(".d3").click(function(e){
+      e.stopPropagation();  //阻止事件冒泡
+      console.log('d3');
+    });
+
+       var data = [
+                {
+                  name:'AAA',
+                  child:[
+                    {name:'a1',child:[{name:'a1-1'},{name:'a1-2'}]},
+                    {name:'a2'},
+                    {name:'a3',child:[{name:'a3-1'},{name:'a3-2',child:[{name:'a3-2-1'},{name:'a3-2-2'}]}]}
+                  ]
+                },
+                {
+                  name:'BBB',
+                  child:[{name:'b1'},{name:'b2'},{name:'b3'}]
+                },
+                {
+                  name:'CCC',
+                  child:[{name:'c1'},{name:'c2'},{name:'c3'}]
+                },
+                {
+                  name:'DDD',
+                  child:[{name:'d1'}]
+                }
+                ];
+
+        function createTree(data){
+          var str = "<ul>";
+          for(var i=0;i<data.length;i++){
+            //str += "<li>"+data[i].name+"</li>";
+            if(data[i].child && data[i].child.length>0) {
+              str += "<li class='item'>"+data[i].name;
+              str += createTree(data[i].child);
+            }else {
+              str += "<li>"+data[i].name;
+            }
+            str +="</li>";
+          };
+          str += "</ul>";
+          return str;
+        };
+        $(".lists").html(createTree(data));
+        //添加事件  未来元素
+        $(".lists").on("click",".item",function(event){
+          var e = event || window.event;
+          e.stopPropagation();  //阻止事件冒泡
+           if($(e.target).find("ul").is(":visible")){
+             $(e.target).find("ul").hide();
+           }else {
+             $(e.target).find("ul").show();
+           }
+        })
+
+
+    </script>
+
+  
+  </body>
+</html>
