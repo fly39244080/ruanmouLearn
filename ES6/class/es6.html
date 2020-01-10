@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>es6</title>
+</head>
+<body>
+    <script>
+           //es6 ,定义一个名字为Person
+           class Person {
+            // constructor
+            constructor(name,age) {
+                this.name = name
+                this.age=age
+            }
+           
+            say(){
+                return 'my name'+this.name +'age:'+this.age;
+            }
+            // say2(){
+            //     return 'my name'+this.name +'age:'+this.age;
+            // }
+
+        }
+
+        Person.prototype.addFn = function(){
+            this.link = 'baidu';
+            return 'test ' + this.link;
+        }
+
+        //合并对象， 可以有多个参数， 合并 从右到左的书序合并， 最终合并的对象就是 
+        var testNe = Object.assign({},Person.prototype,{
+            getName(){
+                return this.name
+            },
+            getAge(){
+                return this.age
+            }
+        },{test:'00'});
+
+        
+        // Person.prototype=testNe;
+        console.log(Person.prototype);
+        var obj = new Person('laney','30');
+
+        //注意：
+        // typeof Person :function
+
+        // Person.prototype.constructor == Person
+        // prototype:用来存储我们公共的部分
+
+
+        //类的所有所有实例共享一个原型对象，他们的原型是Person.prototype
+
+        class Box {
+            constructor(num1){
+                this.num1 = num1
+            }
+            sum(){
+                return this.num1;
+            }
+        }
+
+        var box1 = new Box(12);
+        var box2 = new Box(22);
+
+        // 对象都有__proto__, 
+        // box1和box2都是Box的实例，他们的__proto__都指向Box的prototype
+        
+        box1.__proto__  === box2.__proto__  
+
+        // class 不存在变量提升
+
+        var a1 = new A();
+        function A(){
+
+        }
+
+        // ES6  不存在变量提升
+        class B {
+
+        }
+        var b1 = new B();
+
+
+
+
+    </script>
+</body>
+</html>

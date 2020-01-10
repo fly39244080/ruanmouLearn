@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+    //字面量定义访问器属性
+    var obj3 = {
+            firstName: 'stephen', 
+            lastName: 'curry',
+            get fullName(){
+                return this.firstName + " " + this.lastName;
+            },
+            set fullName(data){
+                var names = data.split(' ');
+                this.firstName = names[0];
+                this.lastName = names[1];
+            }
+        };
+
+         console.log(obj3);
+         obj3.fullName = 'kobe bryant';
+         console.log(obj3.fullName);
+
+
+        class MyClass{
+            static firstName = 'stephen';
+            static lastName = 'curry';
+            get fullName(){
+                return MyClass.firstName + " " + MyClass.lastName;
+            }
+            set fullName(data){
+                var names = data.split(' ');
+                this.firstName = names[0];
+                this.lastName = names[1];
+            }
+        }
+
+
+   </script>
+</body>
+</html>

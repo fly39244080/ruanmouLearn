@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>静态属性和静态方法</title>
+</head>
+<body>
+    <script>
+        // 静态属性和静态方法
+        
+        // 是指class Person本身的属性，
+
+        class Person {
+            static name='laney';  //静态属性的写法
+            static test(){
+                console.log('00');
+            }
+            constructor(){
+                this.link='oooo';
+            }
+          
+        }
+        Person.test();
+        var p1 = new Person();
+        // p1.test //错误
+        // p1.name   // 
+        // p1.link  // 
+        
+        // Person.age = '20';
+
+
+        // 私有属性 和 私有方法 ，构造函数里面使用， 不在外部使用
+        // get ,set 访问器属性
+
+
+            //字面量定义访问器属性，fullName 访问器属性
+        var obj3 = {
+            firstName: 'stephen', 
+            lastName: 'curry',
+            get fullName(){
+                return this.firstName + " " + this.lastName;
+            },
+            set fullName(data){
+                var names = data.split(' ');
+                this.firstName = names[0];
+                this.lastName = names[1];
+            }
+        };
+
+         console.log(obj3);
+         obj3.fullName = 'kobe bryant';
+         console.log(obj3.fullName);
+
+        class MyObj {
+            constructor(firstName ,lastName){
+                this.firstName  = firstName ;
+                this.lastName = lastName;
+            }
+            get fullName(){
+                return this.firstName + " " + this.lastName;
+            }
+            set fullName(data){
+                var names = data.split(' ');
+                this.firstName = names[0];
+                this.lastName = names[1];
+            }
+        }
+
+     
+
+
+
+        </script>
+</body>
+</html>

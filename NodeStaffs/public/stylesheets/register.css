@@ -1,0 +1,127 @@
+.main-register {
+    display: flex;
+    display: -webkit-flex;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 80px;
+  }
+  .main-register .register {
+    width: 360px;
+    background: #ffffff;
+    box-shadow: 0px 3px 10px 1px rgba(43, 100, 148, 0.6);
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 40px;
+  }
+  .main-register .register-ul {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-around;
+  }
+  .main-register .register-ul li {
+    height: 43px;
+    font-size: 20px;
+    font-weight: 700;
+    box-sizing: border-box;
+    padding-bottom: 2px;
+  }
+  .btn-capture{
+    width: 120px;
+    border: 0;
+    background: #ccc;
+    color: #666;
+  }
+  .btn-capture.count-downing {
+    background: #ecc448;
+    color: #fff;
+  }
+  .main-register .register-ul li:hover {
+    color: #00A922;
+    cursor: pointer;
+    border-bottom: 2px solid #00A922;
+  }
+  .main-register .register .phone-input {
+    box-sizing: border-box;
+    position: relative;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+  }
+  .main-register .register .phone-input  > input {
+    width: 100%;
+    border: none;
+    border-radius: 0px;
+  }
+  .main-register .register .phone-input  > span {
+    position: absolute;
+    right: 0;
+    top: 6px;
+    font-size: 12px;
+    color: #646464;
+    cursor: pointer;
+  }
+  .main-register .register .to-register {
+    font-size: 12px;
+    color: #646464;
+  }
+  .main-register .register-btn {
+    line-height: 40px;
+    background-color: #00A922;
+    color: white;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .main-register .register-bottom-ul {
+    justify-content: space-between;
+  }
+  .main-register .register-bottom-ul  > li {
+    cursor: pointer;
+  }
+  .main-register .register-bottom-ul  > li > a {
+    color: #646464;
+  }
+  .main-register .register .phone-error-tip,
+  .main-register .register .pass-error-tip,
+  .main-register .register .qq-error-tip,
+  .main-register .register .class-error-tip,
+  .main-register .register .cap-error-tip {
+    box-sizing: border-box;
+    text-align: right;
+    padding-left: 8px;
+    margin-bottom: 5px;
+    display: none;
+    font-size: 12px;
+    color: #646464;
+    position: absolute;
+    right: 0;
+    bottom: -33px;
+  }
+  .main-register .register .reg-bottom {
+    padding-right: 0;
+  }
+  .main-register .register .reg-bottom select {
+    border: none;
+    background: none;
+    color: #4f5f6f;
+  }
+  .main-register .register-logo {
+    position: absolute;
+    top: 6%;
+    left: 3%;
+  }
+  .main-register .register-right-p {
+    position: absolute;
+    right: 4%;
+    top: 6%;
+    color: white;
+    font-size: 18px;
+  }
+  .main-register .register-right-p  > a {
+    color: #9FECAF;
+    margin-left: 10px;
+  }
+  

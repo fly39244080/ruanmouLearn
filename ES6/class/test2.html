@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+     // class 类的继承  super
+     // super.父对象，父类的方法
+     // 必须在使用this关键字之前使用
+     // super 调用父对象的函数
+
+        class Person {
+            static ping(){
+                return 'ping';
+            }
+            // constructor
+            constructor(name,age) {
+                this.name = name
+                this.age=age
+            }
+           
+            say(){
+                return 'my name'+this.name +'age:'+this.age;
+            }
+        }
+
+        
+        class Houzi extends Person {
+            static test1(){
+                return super.ping();
+            }
+            constructor(name,age){
+                // console.log(this); //报错
+             // this.name  //
+            //需注意这个地方 如果一个子类继承了父类,那么必须在这个地方调用super 
+            //才能在constructor 使用this 否则会报 this is not defined
+            //但是在类其他方法定义里面还是会指向实例本身的
+                super(name,age);
+               
+                this.linkw = 'ssss'
+                console.log(this);
+            }
+          
+            hello(){
+            console.log('pppp');
+            
+            var parentFun = super.say();
+                console.log(parentFun);
+            }
+        }
+ var p1 = Houzi.test1();
+var k1 = new Houzi('houzi','100');
+k1.hello();
+//这里注意： 可使用super 在子类直接调用父类方法
+//但是： 子类的 静态方法 得 调的是父类的静态方法 ， 
+// 子类的原型方法 调用的是父类的原型方法
+
+    </script>
+</body>
+</html>

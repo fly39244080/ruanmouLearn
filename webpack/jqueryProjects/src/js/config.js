@@ -7,6 +7,7 @@ window.globalCom  = vendor_library('./node_modules/webpack/buildin/global.js');
 window.Vue = vendor_library('./node_modules/vue/dist/vue.runtime.esm.js');
 
 var commonFun = {};
+
 commonFun.test = function(){
 
 }

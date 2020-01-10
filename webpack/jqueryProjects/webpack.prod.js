@@ -24,6 +24,8 @@ pages.forEach(function(page){
     // console.log(page);
     var pagestr = page.match(/pages\/(\S*)\.html/);
     var name = pagestr[1];
+    console.log('----------------------------------');
+    console.log(name);
     var plug = new htmlWebpackPlugin({
         filename:path.resolve(buildPath,name+'.html'),
         title:'测试',

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>es5</title>
+</head>
+<body>
+    <script>
+
+        //es5
+        function Person(name,age){
+            this.name = name
+            this.age=age
+        }
+        Person.prototype.say = function(){
+            return 'my name'+this.name +'age:'+this.age;
+        }
+        debugger
+        var obj = new Person('laney','30');
+        // //执行流程
+        // // 1. 创建了一个对象，属性名__proto__ ,值为构造函数原型prototype的属性
+        // // 2.将构造函数的this指向刚创建的对象obj
+        // //3. 执行构造函数的语句
+        // //4 将创建的对象进行返回
+        // obj.__proto__== Person.prototype
+
+
+    </script>
+</body>
+</html>

@@ -40,7 +40,7 @@ pluginsAll.push(new webpack.DefinePlugin({
 
 pluginsAll.push(new CopyWebpackPlugin([ 
     { from: path.resolve(__dirname,'./static'), to: buildPath+'/static' }
-  ]));
+]));
 
   pluginsAll.push(new webpack.ProvidePlugin({
     // config:path.resolve(srcPath,'js/config.js')
